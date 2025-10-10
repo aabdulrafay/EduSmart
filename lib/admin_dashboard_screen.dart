@@ -15,11 +15,10 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   // Tracks the selected tab index
   int _selectedIndex = 0;
 
-  // List of the view widgets to display
   static const List<Widget> _widgetOptions = <Widget>[
-    DashboardView(), // Must match the class in dashboard_view.dart
-    ReportsView(),   // Must match the class in report_view.dart
-    ProfileView(),   // Must match the class in profile_view.dart
+    DashboardView(),
+    ReportsView(),
+    ProfileView(),
   ];
 
   // Updates the state when a tab is tapped
