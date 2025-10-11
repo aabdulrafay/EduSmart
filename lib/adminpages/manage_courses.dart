@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './Classes/courses_class.dart';
+import 'Classes/add_courses_screen.dart';
 
 class ManageCoursesScreen extends StatefulWidget {
   const ManageCoursesScreen({super.key});
@@ -9,29 +9,57 @@ class ManageCoursesScreen extends StatefulWidget {
 }
 
 class _ManageCoursesScreenState extends State<ManageCoursesScreen> {
-  final List<Course> _courses = [
-    Course(
-        id: 'CS3643',
-        name: 'Operating System',
-        teacher: 'Mr. Shahzad Ahmed Khan'),
-    Course(
-        id: 'CS4243',
-        name: 'Mobile Application Development',
-        teacher: 'Mr. Usman Karim'),
-    Course(id: 'SE1130', name: 'Statistics', teacher: 'Dr. M. Aslam'),
-    Course(
-        id: 'CS3841',
-        name: 'Web Programming',
-        teacher: 'Ms. Ayesha Siddiqa'),
-    Course(
-        id: 'SE2020',
-        name: 'Software Construction',
-        teacher: 'Dr. Ali Raza'),
-    Course(
-        id: 'AI4010',
-        name: 'Introduction to AI',
-        teacher: 'Mr. Zeeshan Ali'),
-  ];
+  void _showEditCourseDialog({
+    required String currentName,
+    required String currentTeacher,
+  }) {
+    final TextEditingController nameController =
+    TextEditingController(text: currentName);
+    final TextEditingController teacherController =
+    TextEditingController(text: currentTeacher);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Edit Course'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Course Name'),
+                autofocus: true,
+              ),
+              TextField(
+                controller: teacherController,
+                decoration: const InputDecoration(labelText: 'Teacher Name'),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                final snackBar = SnackBar(
+                  content: const Text('Course Updated Successfully!'),
+                  backgroundColor: Colors.green,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Navigator.of(context).pop();
+              },
+              child: const Text('Update'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,37 +68,82 @@ class _ManageCoursesScreenState extends State<ManageCoursesScreen> {
         title: const Text('Manage Courses'),
       ),
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: _courses.length,
-          itemBuilder: (BuildContext context, int index) {
-            final course = _courses[index];
-            return Card(
-              margin:
-              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: ListView(
+          padding: const EdgeInsets.all(8.0),
+          children: <Widget>[
+            Card(
               child: ListTile(
-                title: Text(course.name),
-                subtitle: Text('Teacher: ${course.teacher} | ID: ${course.id}'),
+                title: const Text('Operating System'),
+                subtitle:
+                const Text('Teacher: Mr. Shahzad Ahmed Khan | ID: CS3643'),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     IconButton(
                       icon: const Icon(Icons.edit_outlined),
-                      onPressed: () {},
+                      onPressed: () {
+                        _showEditCourseDialog(
+                          currentName: 'Operating System',
+                          currentTeacher: 'Mr. Shahzad Ahmed Khan',
+                        );
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete_outline,
                           color: Colors.redAccent),
-                      onPressed: () {},
+                      onPressed: () {
+                        final snackBar = SnackBar(
+                          content: const Text('Deleted Successfully!'),
+                          backgroundColor: Colors.red,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
                     ),
                   ],
                 ),
               ),
-            );
-          },
+            ),
+            Card(
+              child: ListTile(
+                title: const Text('Mobile Application Development'),
+                subtitle: const Text('Teacher: Mr. Usman Karim | ID: CS4243'),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.edit_outlined),
+                      onPressed: () {
+                        _showEditCourseDialog(
+                          currentName: 'Mobile Application Development',
+                          currentTeacher: 'Mr. Usman Karim',
+                        );
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline,
+                          color: Colors.redAccent),
+                      onPressed: () {
+                        final snackBar = SnackBar(
+                          content: const Text('Deleted Successfully!'),
+                          backgroundColor: Colors.red,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddCourseScreen()),
+          );
+        },
         tooltip: 'Add Course',
         child: const Icon(Icons.add),
       ),

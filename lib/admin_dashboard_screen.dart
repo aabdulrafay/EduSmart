@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-// Updated import paths to match your folder structure
 import './adminpages/dashboard_view.dart';
 import './adminpages/report_view.dart';
-import './adminpages/profile_view.dart';
+import './adminpages/admin_profile_view.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   const AdminDashboardScreen({super.key});
@@ -12,16 +11,22 @@ class AdminDashboardScreen extends StatefulWidget {
 }
 
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
-  // Tracks the selected tab index
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    DashboardView(),
-    ReportsView(),
-    ProfileView(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const DashboardView(),
+    const ReportsView(),
+    const AdminProfileView(
+      name: 'Admin User',
+      role: 'System Administrator',
+      email: 'admin@edusmart.app',
+      employeeId: 'EMP-001',
+      phone: '000-111-2222',
+      profileImageUrl:
+      'https://static.thenounproject.com/png/2123284-200.png',
+    ),
   ];
 
-  // Updates the state when a tab is tapped
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -35,9 +40,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         title: const Text('Admin Dashboard'),
         automaticallyImplyLeading: false,
       ),
-      // The body now shows the currently selected view from the list
       body: _widgetOptions.elementAt(_selectedIndex),
-      // The BottomNavigationBar
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

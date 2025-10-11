@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Classes/add_teacher_screen.dart';
 
 class ManageTeachersScreen extends StatefulWidget {
   const ManageTeachersScreen({super.key});
@@ -41,7 +42,12 @@ class _ManageTeachersScreenState extends State<ManageTeachersScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddTeacherScreen()),
+          );
+        },
         tooltip: 'Add Teacher',
         child: const Icon(Icons.add),
       ),
