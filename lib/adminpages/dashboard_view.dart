@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'manage_courses.dart'; // This import will now work
+import 'manage_courses.dart';
+import 'manage_teachers.dart';
+import 'manage_students.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
@@ -20,7 +22,7 @@ class DashboardView extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ManageCourses()),
+                MaterialPageRoute(builder: (context) => const ManageCoursesScreen()),
               );
             },
           ),
@@ -28,13 +30,23 @@ class DashboardView extends StatelessWidget {
             icon: Icons.people_outline,
             title: 'Manage Teachers',
             context: context,
-            onTap: () { /* Add navigation later */ },
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ManageTeachersScreen()),
+              );
+            },
           ),
           _buildFeatureCard(
             icon: Icons.person_search_outlined,
             title: 'Manage Students',
             context: context,
-            onTap: () { /* Add navigation later */ },
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ManageStudentsScreen()),
+              );
+            },
           ),
         ],
       ),
