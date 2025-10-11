@@ -12,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   // 1. Controllers to read text from input fields
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController(  );
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
     else if (email == 'student' && password == 'student') {
-      // Student login
+      // On success, navigate to the Student Dashboard
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const StudentDashboardScreen()),
       );
@@ -91,7 +91,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     labelText: 'Email',
                     prefixIcon: Icon(Icons.email_outlined, color: primaryColor),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: const BorderSide(color: primaryColor, width: 2.0
+                    )
                   ),
+                ),
                 ),
                 const SizedBox(height: 16.0),
 
@@ -103,7 +108,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     labelText: 'Password',
                     prefixIcon: Icon(Icons.lock_outline, color: primaryColor),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: const BorderSide(color: primaryColor, width: 2.0
+                    )
                   ),
+                ),
                 ),
                 const SizedBox(height: 24.0),
 
@@ -125,12 +135,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Text('Forgot Password?', style: TextStyle(color: primaryColor))),
                 ),
                 const SizedBox(height: 24.0),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
+                  alignment: WrapAlignment.center,
                   children: [
-                    const Text("Don't have an account?", style: TextStyle(color: Colors.grey)),
-                    TextButton(onPressed: () {}, child: const Text('Sign Up', style: TextStyle(color: primaryColor))),
+                    const Text(
+                      "In order to any problem contact admin at ",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // Handle email tap, e.g., open email app
+                      },
+                      child: const Text(
+                        "adminsupport@edusmart.com",
+                        style: TextStyle(
+                          color: Color(0xFF0A73B7),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
