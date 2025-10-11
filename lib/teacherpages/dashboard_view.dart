@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:edusmart/teacherpages/Attendance/mark_attendance.dart';
 
 class TeacherDashboard extends StatelessWidget {
   const TeacherDashboard({super.key});
@@ -21,7 +22,12 @@ class TeacherDashboard extends StatelessWidget {
                 icon: Icons.check_circle_outline,
                 title: 'Mark Attendance',
                 context: context,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MarkAttendanceScreen()),
+                  );
+                },
               ),
               _buildFeatureCard(
                 icon: Icons.file_download_outlined,
