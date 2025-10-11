@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './admin_dashboard_screen.dart';
 import './teacher_dashboard_screen.dart';
+import './student_dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -37,7 +38,14 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => TeacherDashboardScreen()),
       );
-    } else {
+    }
+    else if (email == 'student' && password == 'student') {
+      // Student login
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const StudentDashboardScreen()),
+      );
+    }
+    else {
       // On failure, show an error message
       final snackBar = SnackBar(
         content: const Text('Invalid email or password.'),
