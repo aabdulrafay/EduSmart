@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'students_details.dart';
-
+import 'Classes/add_student_screen.dart';
 class ManageStudentsScreen extends StatefulWidget {
   const ManageStudentsScreen({super.key});
 
@@ -75,7 +75,12 @@ class _ManageStudentsScreenState extends State<ManageStudentsScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddStudentScreen()),
+          );
+        },
         tooltip: 'Add Student',
         child: const Icon(Icons.add),
       ),

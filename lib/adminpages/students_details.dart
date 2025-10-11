@@ -10,6 +10,15 @@ class StudentDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(studentName),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit_outlined),
+            onPressed: () {
+              // We will add navigation to the edit form here in the next step.
+            },
+            tooltip: 'Edit Student',
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -86,7 +95,7 @@ class StudentDetailsScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Text(
-                        'Grade: A',
+                        'Grade: B+',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
