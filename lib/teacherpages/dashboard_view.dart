@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+
+class TeacherDashboard extends StatelessWidget {
+  const TeacherDashboard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dashboard'),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: GridView.count(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+            children: <Widget>[
+              _buildFeatureCard(
+                icon: Icons.check_circle_outline,
+                title: 'Mark Attendance',
+                context: context,
+                onTap: () {},
+              ),
+              _buildFeatureCard(
+                icon: Icons.file_download_outlined,
+                title: 'Export Attendance Report',
+                context: context,
+                onTap: () {},
+              ),
+              _buildFeatureCard(
+                icon: Icons.assignment_outlined,
+                title: 'Evaluate Students',
+                context: context,
+                onTap: () {},
+              ),
+              _buildFeatureCard(
+                icon: Icons.file_download_outlined,
+                title: 'Export Result Report',
+                context: context,
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Reusable card widget
+  Widget _buildFeatureCard({
+    required IconData icon,
+    required String title,
+    required BuildContext context,
+    required VoidCallback onTap,
+  }) {
+    return SizedBox(
+      width: 140,  // Adjusted width
+      height: 140, // Adjusted height
+      child: Card(
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(icon, size: 48.0, color: Colors.blue),
+              const SizedBox(height: 14.0),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

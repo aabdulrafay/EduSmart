@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './admin_dashboard_screen.dart'; // Import the dashboard screen
+import './admin_dashboard_screen.dart';
+import './teacher_dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,6 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AdminDashboardScreen()),
       );
+    }
+    else if (email == 'teacher' && password == 'teacher') {
+      // On success, navigate to the Teacher Dashboard
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => TeacherDashboardScreen()),
+      );
     } else {
       // On failure, show an error message
       final snackBar = SnackBar(
@@ -42,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).primaryColor;
+    const primaryColor = Color(0xFF0A73B7);
 
     return Scaffold(
       body: SafeArea(
@@ -53,12 +60,12 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Icon(Icons.school, size: 100.0, color: primaryColor),
+                Image.asset('images/logo.png', height: 150.0),
                 const SizedBox(height: 16.0),
                 const Text(
                   'Welcome to EduSmart',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8.0),
                 const Text(
@@ -106,15 +113,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 Align(
                   alignment: Alignment.centerRight,
-                  child: TextButton(onPressed: () {}, child: const Text('Forgot Password?')),
+                  child: TextButton(onPressed: () {},
+                      child: const Text('Forgot Password?', style: TextStyle(color: primaryColor))),
                 ),
                 const SizedBox(height: 24.0),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account?"),
-                    TextButton(onPressed: () {}, child: const Text('Sign Up')),
+                    const Text("Don't have an account?", style: TextStyle(color: Colors.grey)),
+                    TextButton(onPressed: () {}, child: const Text('Sign Up', style: TextStyle(color: primaryColor))),
                   ],
                 ),
               ],

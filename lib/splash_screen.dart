@@ -1,78 +1,57 @@
-// splash_screen.dart
+//simple fade in animation for splash screen
 
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'login_screen.dart';
-import 'main.dart'; // Correctly import the Home screen file
+import 'package:edusmart/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-  // 1. State variable to control the opacity for the animation
-  double _opacity = 0.0;
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
+  Animation<double>? _animation;
 
   @override
   void initState() {
     super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
+    _animation = CurvedAnimation(parent: _controller!, curve: Curves.easeIn);
 
-    // Timer to trigger the fade-in animation
-    Timer(const Duration(milliseconds: 100), () {
-      setState(() {
-        _opacity = 1.0;
-      });
-    });
+    _controller!.forward();
 
-    // Timer to navigate to the home screen
-    Timer(const Duration(seconds: 4), () {
+    Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          // Corrected: Navigate to your Home() widget
-          builder: (context) => LoginScreen(),
-        ),
-      );
+          MaterialPageRoute(builder: (context) => LoginScreen()));
     });
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // 2. Wrap your container with AnimatedOpacity
-            AnimatedOpacity(
-              opacity: _opacity,
-              duration: const Duration(seconds: 2),
-              child: Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(35.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
-                      spreadRadius: 1,
-                      blurRadius: 12,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(35.0),
-                  // 3. Using your specified image path
-                  child: Image.asset(
-                    'images/logo.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
+      body: FadeTransition(
+        opacity: _animation!,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'images/logo.png',
+                width: 200,
+                height: 200,
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
