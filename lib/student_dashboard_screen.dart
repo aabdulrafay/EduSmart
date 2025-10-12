@@ -41,14 +41,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       StudentEnrollmentView(
         initialCourse: _courseToEnroll,
         onEnrollmentSuccess: (String enrolledCourse) {
-          setState(() {
-            // keep enrolled courses unique
-            if (!_enrolledCourses.contains(enrolledCourse)) {
-              _enrolledCourses.add(enrolledCourse);
-            }
-            _selectedIndex = 2; // go to Grades tab
-          });
-
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Enrolled in $enrolledCourse')),
           );

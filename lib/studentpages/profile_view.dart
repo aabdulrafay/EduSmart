@@ -14,26 +14,10 @@ class _StudentProfileViewState extends State<StudentProfileView> {
     {
       'name': 'Abdul Rafay',
       'studentId': '53325',
-      'email': 'rafay@student.edu',
-      'phone': '+92 300 1234567',
+      'email': '53325@students.riphah.edu.pk',
+      'phone': '+92 348 5135553',
       'department': 'Software Engineering',
       'image': 'images/student.png',
-    },
-    {
-      'name': 'Hassaan Zahid',
-      'studentId': '57876',
-      'email': 'hassaan@student.edu',
-      'phone': '+92 301 7654321',
-      'department': 'Software Engineering',
-      'image': 'images/student2.png',
-    },
-    {
-      'name': 'Abdul Rafay',
-      'studentId': '54689',
-      'email': 'abdul@student.edu',
-      'phone': '+92 302 9876543',
-      'department': 'Software Engineering',
-      'image': 'images/student3.png',
     },
   ];
 
@@ -48,22 +32,6 @@ class _StudentProfileViewState extends State<StudentProfileView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Dropdown to switch between students
-          DropdownButton<int>(
-            value: _selectedIndex,
-            items: List.generate(
-              students.length,
-                  (index) => DropdownMenuItem(
-                value: index,
-                child: Text(students[index]['name']!),
-              ),
-            ),
-            onChanged: (value) {
-              if (value != null) {
-                setState(() => _selectedIndex = value);
-              }
-            },
-          ),
           const SizedBox(height: 20),
           CircleAvatar(
             radius: 48,
