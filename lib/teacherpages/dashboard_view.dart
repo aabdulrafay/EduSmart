@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:edusmart/teacherpages/Attendance/mark_attendance.dart';
-import 'package:edusmart/teacherpages/Attendance/export_attendance.dart';
+import 'package:edusmart/teacherpages/Attendance/mark_attendance_screen.dart';
+import 'package:edusmart/teacherpages/Attendance/export_attendance_screen.dart';
 import 'package:edusmart/teacherpages/Result Screens/teacher_courses_screen.dart';
+import 'package:edusmart/teacherpages/Result Screens/export_result_report_screen.dart';
 
 class TeacherDashboard extends StatelessWidget {
   const TeacherDashboard({super.key});
@@ -57,7 +58,12 @@ class TeacherDashboard extends StatelessWidget {
                 icon: Icons.file_download_outlined,
                 title: 'Export Result Report',
                 context: context,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ExportResultReportScreen()),
+                  );
+                },
               ),
             ],
           ),
