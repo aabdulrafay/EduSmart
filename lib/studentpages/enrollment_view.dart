@@ -94,8 +94,6 @@ class _StudentEnrollmentViewState extends State<StudentEnrollmentView> {
             ),
 
             const SizedBox(height: 20),
-
-            // Show course details dynamically
             if (_selectedCourse != null && selectedDetails['name']!.isNotEmpty)
               Card(
                 elevation: 2,
@@ -132,7 +130,6 @@ class _StudentEnrollmentViewState extends State<StudentEnrollmentView> {
             ),
             const SizedBox(height: 10),
 
-            // Display the enrolled courses list
             if (enrolledCourses.isEmpty)
               const Text(
                 'No courses enrolled yet.',

@@ -14,7 +14,6 @@ class StudentGradesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Dummy data fallback (for testing)
     final courses = enrolledCourses.isEmpty
         ? ['Mobile App Development', 'Database Systems', 'Software Engineering']
         : enrolledCourses;

@@ -9,7 +9,6 @@ class StudentProfileView extends StatefulWidget {
 }
 
 class _StudentProfileViewState extends State<StudentProfileView> {
-  // Static demo data for 3 students
   final List<Map<String, String>> students = [
     {
       'name': 'Abdul Rafay',
