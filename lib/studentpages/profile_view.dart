@@ -1,70 +1,121 @@
 import 'package:flutter/material.dart';
 import '../login_screen.dart';
 
-class StudentProfileView extends StatefulWidget {
-  const StudentProfileView({super.key});
+class StudentProfileView extends StatelessWidget {
+  final String name;
+  final String studentId;
+  final String email;
+  final String phone;
+  final String department;
+  final String gender;
+  final String dateOfBirth;
+  final String address;
+  final String profileImageUrl;
 
-  @override
-  State<StudentProfileView> createState() => _StudentProfileViewState();
-}
-
-class _StudentProfileViewState extends State<StudentProfileView> {
-  final List<Map<String, String>> students = [
-    {
-      'name': 'Abdul Rafay',
-      'studentId': '53325',
-      'email': '53325@students.riphah.edu.pk',
-      'phone': '+92 348 5135553',
-      'department': 'Software Engineering',
-      'image': 'images/student.png',
-    },
-  ];
-
-  int _selectedIndex = 0;
+  const StudentProfileView({
+    super.key,
+    required this.name,
+    required this.studentId,
+    required this.email,
+    required this.phone,
+    required this.department,
+    required this.gender,
+    required this.dateOfBirth,
+    required this.address,
+    required this.profileImageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final student = students[_selectedIndex];
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Profile'),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: CircleAvatar(
+                radius: 60,
+                backgroundImage: NetworkImage(profileImageUrl),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            Center(
+              child: Text(
+                name,
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Center(
+              child: Text(
+                'ID: $studentId',
+                style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Center(
+              child: Text(
+                department,
+                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            const Divider(),
 
-    return Padding(
-      padding: const EdgeInsets.all(22.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 20),
-          CircleAvatar(
-            radius: 48,
-            backgroundImage: AssetImage(student['image']!),
-          ),
-          const SizedBox(height: 14),
-          Text(student['name']!,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
-          Text(
-            '${student['department']} • ID: ${student['studentId']}',
-            style: const TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(height: 12),
-          ListTile(
-            leading: const Icon(Icons.email_outlined),
-            title: Text(student['email']!),
-          ),
-          ListTile(
-            leading: const Icon(Icons.phone_outlined),
-            title: Text(student['phone']!),
-          ),
-          const Spacer(),
-          ElevatedButton.icon(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-              );
-            },
-            icon: const Icon(Icons.logout),
-            label: const Text('Logout'),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-          ),
-        ],
+            // Contact Information Section
+            const SizedBox(height: 16.0),
+            const Text(
+              'Contact Information',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8.0),
+            ListTile(
+              leading: const Icon(Icons.email),
+              title: Text(email),
+            ),
+            ListTile(
+              leading: const Icon(Icons.phone),
+              title: Text(phone),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: Text(address),
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: Text(gender),
+            ),
+            ListTile(
+              leading: const Icon(Icons.cake),
+              title: Text(dateOfBirth),
+            ),
+
+            const SizedBox(height: 24.0),
+            Center(
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        (route) => false,
+                  );
+                },
+                icon: const Icon(Icons.logout),
+                label: const Text('Logout'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red.shade400,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+                  textStyle: const TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

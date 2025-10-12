@@ -13,26 +13,34 @@ class StudentCoursesView extends StatelessWidget {
       {'course': 'Software Engineering', 'teacher': 'Dr. Ahmed'},
     ];
 
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemCount: courses.length,
-      itemBuilder: (context, index) {
-        final course = courses[index];
-        return Card(
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          child: ListTile(
-            leading: const Icon(Icons.book_outlined, color: Colors.blue),
-            title: Text(course['course']!),
-            subtitle: Text('Teacher: ${course['teacher']}'),
-            trailing: ElevatedButton(
-              onPressed: () {
-                onNavigateToEnroll?.call(course['course']!);
-              },
-              child: const Text('Enroll'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Available Courses'),
+      ),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: courses.length,
+        itemBuilder: (context, index) {
+          final course = courses[index];
+          return Card(
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ListTile(
+              leading: const Icon(Icons.book_outlined, color: Colors.blue),
+              title: Text(course['course']!),
+              subtitle: Text('Teacher: ${course['teacher']}'),
+              trailing: ElevatedButton(
+                onPressed: () {
+                  onNavigateToEnroll?.call(course['course']!);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0A73B7),
+                ),
+                child: const Text('Enroll'),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -67,97 +67,100 @@ class _StudentEnrollmentViewState extends State<StudentEnrollmentView> {
         .firstWhere((c) => c['name'] == _selectedCourse,
         orElse: () => {'name': '', 'instructor': '', 'timing': ''});
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Enroll in a Course',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            DropdownButtonFormField<String>(
-              value: _selectedCourse,
-              items: availableCourses
-                  .map((course) => DropdownMenuItem(
-                value: course['name'],
-                child: Text(course['name']!),
-              ))
-                  .toList(),
-              onChanged: (value) => setState(() => _selectedCourse = value),
-              decoration: const InputDecoration(
-                labelText: 'Select Course',
-                border: OutlineInputBorder(),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-            if (_selectedCourse != null && selectedDetails['name']!.isNotEmpty)
-              Card(
-                elevation: 2,
-                margin: const EdgeInsets.only(bottom: 20),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(selectedDetails['name']!,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 8),
-                      Text('Instructor: ${selectedDetails['instructor']}'),
-                      Text('Timing: ${selectedDetails['timing']}'),
-                    ],
-                  ),
-                ),
-              ),
-
-            Center(
-              child: ElevatedButton(
-                onPressed: _enroll,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                ),
-                child: const Text('Confirm Enrollment'),
-              ),
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              'Enrolled Courses:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-
-            if (enrolledCourses.isEmpty)
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Course Enrollment'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               const Text(
-                'No courses enrolled yet.',
-                style: TextStyle(color: Colors.grey),
-              )
-            else
-              Column(
-                children: enrolledCourses
-                    .map(
-                      (course) => Card(
-                    child: ListTile(
-                      leading:
-                      const Icon(Icons.book, color: Colors.blueAccent),
-                      title: Text(course['name']!,
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Instructor: ${course['instructor']}'),
-                          Text('Timing: ${course['timing']}'),
-                        ],
-                      ),
+                'Enroll in a Course',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              DropdownButtonFormField<String>(
+                value: _selectedCourse,
+                items: availableCourses
+                    .map((course) => DropdownMenuItem(
+                  value: course['name'],
+                  child: Text(course['name']!),
+                ))
+                    .toList(),
+                onChanged: (value) => setState(() => _selectedCourse = value),
+                decoration: const InputDecoration(
+                  labelText: 'Select Course',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              if (_selectedCourse != null && selectedDetails['name']!.isNotEmpty)
+                Card(
+                  elevation: 2,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(selectedDetails['name']!,
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 8),
+                        Text('Instructor: ${selectedDetails['instructor']}'),
+                        Text('Timing: ${selectedDetails['timing']}'),
+                      ],
                     ),
                   ),
-                )
-                    .toList(),
+                ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: _enroll,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 50),
+                    backgroundColor: const Color(0xFF0A73B7),
+                  ),
+                  child: const Text('Confirm Enrollment'),
+                ),
               ),
-          ],
+              const SizedBox(height: 30),
+              const Text(
+                'Enrolled Courses:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              if (enrolledCourses.isEmpty)
+                const Text(
+                  'No courses enrolled yet.',
+                  style: TextStyle(color: Colors.grey),
+                )
+              else
+                Column(
+                  children: enrolledCourses
+                      .map(
+                        (course) => Card(
+                      child: ListTile(
+                        leading:
+                        const Icon(Icons.book, color: Colors.blueAccent),
+                        title: Text(course['name']!,
+                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Instructor: ${course['instructor']}'),
+                            Text('Timing: ${course['timing']}'),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                      .toList(),
+                ),
+            ],
+          ),
         ),
       ),
     );
