@@ -12,18 +12,18 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
   static List<Widget> _widgetOptions = <Widget>[
     TeacherDashboard(),
     TeacherProfileView(
-      name: 'John Doe',
-      department: 'Mathematics',
-      designation: 'Professor',
+      name: 'Teacher Name',
+      department: 'Software Engineering',
+      designation: 'Senior Lecturer',
       bio: 'Experienced educator with a passion for teaching.',
       profileImageUrl: 'https://static.thenounproject.com/png/3632534-200.png',
-      email: '@riphah.edu.pk',
+      email: 'teacherName@edusmart.pk',
       phone: '123-456-7890',
       cnic: '12345-6789012-3',
-      address: '123 Main St, City, Country',
+      address: 'I-14, Islamabad, Pakistan',
       gender: 'Male',
       dateOfBirth: '01-01-1980',
-      qualification: 'PhD in Mathematics',
+      qualification: 'MSc Computer Science',
     ),
   ];
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:edusmart/teacherpages/Result Screens/teacher_courses_screen.dart';
 
 class EvaluateStudentsScreen extends StatefulWidget {
   final String courseName;
@@ -75,14 +76,19 @@ class _EvaluateStudentsScreenState extends State<EvaluateStudentsScreen> {
           );
         },
       ),
+      //After submit redirect to teacher home page
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Marks Submitted (Frontend only)')),
+            const SnackBar(content: Text('Marks Submitted Successfully!')),
           );
+          MaterialPageRoute route = MaterialPageRoute(
+            builder: (context) => const TeacherCoursesScreen(),
+          );
+          Navigator.pushReplacement(context, route);
         },
-        backgroundColor: Colors.blueAccent,
-        child: const Icon(Icons.check),
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.check, color: Colors.white),
       ),
     );
   }

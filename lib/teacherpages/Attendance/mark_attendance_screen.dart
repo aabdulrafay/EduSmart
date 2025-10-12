@@ -136,11 +136,16 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //button padding
                 Text('Selected Date: $today'),
                 ElevatedButton(
                   onPressed: () => _selectDate(context),
                   child: const Text('Select Date'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                 ),
+            ),
               ],
             ),
 
@@ -196,7 +201,11 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
               child: ElevatedButton(
                 onPressed: _submitAttendance,
                 child: const Text('Submit Attendance'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24, vertical: 12),
               ),
+            ),
             ),
 
             const SizedBox(height: 20),

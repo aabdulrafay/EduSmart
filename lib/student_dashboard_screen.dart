@@ -25,7 +25,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       studentId: 'sapid',
       email: 'student@edusmart.edu.pk',
       phone: '123-456-7890',
-      department: 'Computer Science',
+      department: 'Software Engineering',
       gender: 'Male',
       dateOfBirth: '2000-01-01',
       address: '123 Main St, City, Country',

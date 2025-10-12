@@ -179,6 +179,10 @@ class _ExportAttendanceScreenState extends State<ExportAttendanceScreen> {
             ElevatedButton.icon(
               icon: const Icon(Icons.picture_as_pdf),
               label: const Text('Export Report as PDF'),
+              style: ElevatedButton.styleFrom(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
               onPressed: () => _generatePdf(context),
             ),
           ],

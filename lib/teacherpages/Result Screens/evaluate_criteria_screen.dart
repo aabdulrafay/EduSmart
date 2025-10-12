@@ -69,7 +69,11 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
                 Navigator.pop(context);
               }
             },
-            child: const Text("Save"),
+            child: const Text("Save", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -136,6 +140,8 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
                   onPressed: _addCriteria,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 18, horizontal: 24),
                   ),
                   child: const Text("Add", style: TextStyle(color: Colors.white)),
                 ),

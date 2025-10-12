@@ -18,12 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
 
-        // 🔹 Primary color scheme
+        // Primary color scheme
         primaryColor: primaryBlue,
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: const Color(0xFFF5F5F7),
 
-        // 🔹 AppBar theme
+        // AppBar theme
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           foregroundColor: primaryBlue,
@@ -36,10 +36,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // 🔹 Icon color across app
+        // Icon color across app
         iconTheme: const IconThemeData(color: primaryBlue),
 
-        // 🔹 TextField / Input Field theme
+        // TextField / Input Field theme
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,
@@ -48,13 +48,13 @@ class MyApp extends StatelessWidget {
           hintStyle: TextStyle(color: Colors.grey[400]),
           prefixIconColor: primaryBlue,
 
-          // 🔵 Floating label (placeholder when focused)
+          // Floating label (placeholder when focused)
           floatingLabelStyle: const TextStyle(
             color: primaryBlue,
             fontWeight: FontWeight.bold,
           ),
 
-          // 🔹 Cursor and underline colors handled by theme below
+          // Cursor and underline colors handled by theme below
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12.0)),
             borderSide: BorderSide.none,
@@ -69,14 +69,14 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // 🔹 Blue cursor globally
+        // Blue cursor globally
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: primaryBlue,
           selectionColor: Color(0x332196F3), // light blue highlight
           selectionHandleColor: primaryBlue,
         ),
 
-        // 🔹 Button styling
+        // Button styling
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryBlue,
@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // 🔹 Bottom navigation bar theme
+        // Bottom navigation bar theme
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
           selectedItemColor: primaryBlue,

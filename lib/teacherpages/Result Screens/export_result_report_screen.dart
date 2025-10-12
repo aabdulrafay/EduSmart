@@ -210,6 +210,10 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
               icon: const Icon(Icons.picture_as_pdf),
               label: const Text('Export Result as PDF'),
               onPressed: () => _generatePdf(context),
+              style: ElevatedButton.styleFrom(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
             ),
           ],
         ),
