@@ -130,8 +130,11 @@ class TeacherProfileView extends StatelessWidget {
                 icon: Icon(Icons.logout),
                 label: Text('Logout'),
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
-                  textStyle: TextStyle(fontSize: 18),
+                  backgroundColor: Colors.red.shade400,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 10.0), // Smaller padding
+                  textStyle: const TextStyle(fontSize: 16), // Smaller text
                 ),
               ),
             ),

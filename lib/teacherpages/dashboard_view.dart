@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:edusmart/teacherpages/Attendance/mark_attendance.dart';
 import 'package:edusmart/teacherpages/Attendance/export_attendance.dart';
+import 'package:edusmart/teacherpages/Result Screens/teacher_courses_screen.dart';
 
 class TeacherDashboard extends StatelessWidget {
   const TeacherDashboard({super.key});
@@ -45,7 +46,12 @@ class TeacherDashboard extends StatelessWidget {
                 icon: Icons.assignment_outlined,
                 title: 'Evaluate Students',
                 context: context,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TeacherCoursesScreen()),
+                  );
+                },
               ),
               _buildFeatureCard(
                 icon: Icons.file_download_outlined,
