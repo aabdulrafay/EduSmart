@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Classes/edit_students_screen.dart';
 
 class StudentDetailsScreen extends StatelessWidget {
   final String studentName;
@@ -14,7 +15,16 @@ class StudentDetailsScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.edit_outlined),
             onPressed: () {
-              // We will add navigation to the edit form here in the next step.
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EditStudentScreen(
+                    currentName: 'Ali Ahmed',
+                    currentSapId: '70012345',
+                    currentDepartment: 'Software Engineering',
+                  ),
+                ),
+              );
             },
             tooltip: 'Edit Student',
           ),

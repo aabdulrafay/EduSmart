@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Classes/add_courses_screen.dart';
+import './Classes/add_courses_screen.dart';
+import './Classes/edit_course_screen.dart';
 
 class ManageCoursesScreen extends StatefulWidget {
   const ManageCoursesScreen({super.key});
@@ -9,58 +10,6 @@ class ManageCoursesScreen extends StatefulWidget {
 }
 
 class _ManageCoursesScreenState extends State<ManageCoursesScreen> {
-  void _showEditCourseDialog({
-    required String currentName,
-    required String currentTeacher,
-  }) {
-    final TextEditingController nameController =
-    TextEditingController(text: currentName);
-    final TextEditingController teacherController =
-    TextEditingController(text: currentTeacher);
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Edit Course'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              TextField(
-                controller: nameController,
-                decoration: const InputDecoration(labelText: 'Course Name'),
-                autofocus: true,
-              ),
-              TextField(
-                controller: teacherController,
-                decoration: const InputDecoration(labelText: 'Teacher Name'),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                final snackBar = SnackBar(
-                  content: const Text('Course Updated Successfully!'),
-                  backgroundColor: Colors.green,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                Navigator.of(context).pop();
-              },
-              child: const Text('Update'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,22 +31,21 @@ class _ManageCoursesScreenState extends State<ManageCoursesScreen> {
                     IconButton(
                       icon: const Icon(Icons.edit_outlined),
                       onPressed: () {
-                        _showEditCourseDialog(
-                          currentName: 'Operating System',
-                          currentTeacher: 'Mr. Shahzad Ahmed Khan',
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const EditCourseScreen(
+                              currentName: 'Operating System',
+                              currentTeacher: 'Mr. Shahzad Ahmed Khan',
+                            ),
+                          ),
                         );
                       },
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete_outline,
                           color: Colors.redAccent),
-                      onPressed: () {
-                        final snackBar = SnackBar(
-                          content: const Text('Deleted Successfully!'),
-                          backgroundColor: Colors.red,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -113,22 +61,21 @@ class _ManageCoursesScreenState extends State<ManageCoursesScreen> {
                     IconButton(
                       icon: const Icon(Icons.edit_outlined),
                       onPressed: () {
-                        _showEditCourseDialog(
-                          currentName: 'Mobile Application Development',
-                          currentTeacher: 'Mr. Usman Karim',
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const EditCourseScreen(
+                              currentName: 'Mobile Application Development',
+                              currentTeacher: 'Mr. Usman Karim',
+                            ),
+                          ),
                         );
                       },
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete_outline,
                           color: Colors.redAccent),
-                      onPressed: () {
-                        final snackBar = SnackBar(
-                          content: const Text('Deleted Successfully!'),
-                          backgroundColor: Colors.red,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
