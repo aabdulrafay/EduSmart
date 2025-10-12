@@ -15,71 +15,97 @@ class DashboardView extends StatelessWidget {
         crossAxisSpacing: 16.0,
         mainAxisSpacing: 16.0,
         children: <Widget>[
-          _buildFeatureCard(
-            icon: Icons.book_outlined,
-            title: 'Manage Courses',
-            context: context,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ManageCoursesScreen()),
-              );
-            },
+          Card(
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ManageCoursesScreen()),
+                );
+              },
+              borderRadius: BorderRadius.circular(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.book_outlined,
+                      size: 50.0, color: Theme.of(context).iconTheme.color),
+                  const SizedBox(height: 16.0),
+                  const Text(
+                    'Manage Courses',
+                    textAlign: TextAlign.center,
+                    style:
+                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
           ),
-          _buildFeatureCard(
-            icon: Icons.people_outline,
-            title: 'Manage Teachers',
-            context: context,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ManageTeachersScreen()),
-              );
-            },
+          Card(
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ManageTeachersScreen()),
+                );
+              },
+              borderRadius: BorderRadius.circular(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.people_outline,
+                      size: 50.0, color: Theme.of(context).iconTheme.color),
+                  const SizedBox(height: 16.0),
+                  const Text(
+                    'Manage Teachers',
+                    textAlign: TextAlign.center,
+                    style:
+                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
           ),
-          _buildFeatureCard(
-            icon: Icons.person_search_outlined,
-            title: 'Manage Students',
-            context: context,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ManageStudentsScreen()),
-              );
-            },
+          Card(
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ManageStudentsScreen()),
+                );
+              },
+              borderRadius: BorderRadius.circular(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.person_search_outlined,
+                      size: 50.0, color: Theme.of(context).iconTheme.color),
+                  const SizedBox(height: 16.0),
+                  const Text(
+                    'Manage Students',
+                    textAlign: TextAlign.center,
+                    style:
+                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
-      ),
-    );
-  }
-
-  // This helper method is now correctly placed within the class
-  Widget _buildFeatureCard({
-    required IconData icon,
-    required String title,
-    required BuildContext context,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(icon, size: 50.0, color: Theme.of(context).primaryColor),
-            const SizedBox(height: 16.0),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
       ),
     );
   }
