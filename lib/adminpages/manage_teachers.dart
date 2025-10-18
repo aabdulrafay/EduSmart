@@ -15,6 +15,12 @@ class _ManageTeachersScreenState extends State<ManageTeachersScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manage Teachers'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(8.0),

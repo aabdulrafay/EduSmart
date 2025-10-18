@@ -37,6 +37,12 @@ class _EditCourseScreenState extends State<EditCourseScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Course'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

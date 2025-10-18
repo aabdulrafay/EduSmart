@@ -8,6 +8,12 @@ class AddTeacherScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Teacher'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

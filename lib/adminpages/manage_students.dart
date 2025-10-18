@@ -14,6 +14,12 @@ class _ManageStudentsScreenState extends State<ManageStudentsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manage Students'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(8.0),

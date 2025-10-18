@@ -15,6 +15,12 @@ class _ManageCoursesScreenState extends State<ManageCoursesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manage Courses'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SafeArea(
         child: ListView(

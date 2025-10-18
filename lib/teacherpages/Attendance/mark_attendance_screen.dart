@@ -113,6 +113,12 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mark Attendance'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

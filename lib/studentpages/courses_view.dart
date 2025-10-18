@@ -16,6 +16,12 @@ class StudentCoursesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Available Courses'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+      ),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),

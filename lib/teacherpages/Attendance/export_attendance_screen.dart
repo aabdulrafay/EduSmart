@@ -161,7 +161,15 @@ class _ExportAttendanceScreenState extends State<ExportAttendanceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Export Attendance Report')),
+      appBar: AppBar(
+          title: const Text('Export Attendance Report'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+      ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

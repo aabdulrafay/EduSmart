@@ -8,6 +8,12 @@ class AddCourseScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Course'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
