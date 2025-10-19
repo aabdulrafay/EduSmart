@@ -18,8 +18,8 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
       _criteria.fold(0, (sum, item) => sum + (item['marks'] as int));
 
   void _addCriteria() {
-    final String name = _nameController.text.trim();
-    final int? marks = int.tryParse(_marksController.text);
+    final name = _nameController.text.trim();
+    final marks = int.tryParse(_marksController.text);
 
     if (name.isNotEmpty && marks != null && marks > 0) {
       setState(() {
@@ -27,14 +27,17 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
         _nameController.clear();
         _marksController.clear();
       });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter valid name and marks")),
+      );
     }
   }
 
   void _editCriteria(int index) {
-    // Create new local controllers so main form is not affected
-    final TextEditingController editNameController =
+    final editNameController =
     TextEditingController(text: _criteria[index]['name']);
-    final TextEditingController editMarksController =
+    final editMarksController =
     TextEditingController(text: _criteria[index]['marks'].toString());
 
     showDialog(
@@ -59,8 +62,8 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              final String newName = editNameController.text.trim();
-              final int? newMarks = int.tryParse(editMarksController.text);
+              final newName = editNameController.text.trim();
+              final newMarks = int.tryParse(editMarksController.text);
               if (newName.isNotEmpty && newMarks != null && newMarks > 0) {
                 setState(() {
                   _criteria[index]['name'] = newName;
@@ -69,11 +72,15 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
                 Navigator.pop(context);
               }
             },
-            child: const Text("Save", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+            child: const Text("Save",
+                style: TextStyle(
+                    color: Color(0xFF0A73B7), fontWeight: FontWeight.bold)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+            child: const Text("Cancel",
+                style:
+                TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -94,11 +101,15 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFF0A73B7);
+    const primaryBlue = Color(0xFF0A73B7);
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Set Criteria - ${widget.courseName}"),
+        backgroundColor: Colors.white,
+        foregroundColor: primaryBlue,
+        elevation: 1,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -110,7 +121,6 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
             ),
             const SizedBox(height: 16),
 
-            // Add form for new criteria
             Row(
               children: [
                 Expanded(
@@ -139,18 +149,18 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
                 ElevatedButton(
                   onPressed: _addCriteria,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 18, horizontal: 24),
+                    backgroundColor: primaryBlue,
+                    padding:
+                    const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
                   ),
-                  child: const Text("Add", style: TextStyle(color: Colors.white)),
+                  child:
+                  const Text("Add", style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
 
             const SizedBox(height: 20),
 
-            // List of added criteria
             Expanded(
               child: ListView.builder(
                 itemCount: _criteria.length,
@@ -158,10 +168,13 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
                   final item = _criteria[index];
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: 6),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: ListTile(
                       title: Text("${item['name']} - ${item['marks']} marks"),
                       trailing: IconButton(
-                        icon: const Icon(Icons.edit, color: primaryColor),
+                        icon: const Icon(Icons.edit, color: primaryBlue),
                         onPressed: () => _editCriteria(index),
                       ),
                     ),
@@ -182,14 +195,13 @@ class _SetMarksCriteriaScreenState extends State<SetMarksCriteriaScreen> {
 
             const SizedBox(height: 20),
 
-            // Proceed Button (visible but disabled until total = 100)
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: totalMarks == 100 ? _proceedToStudents : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
-                  totalMarks == 100 ? primaryColor : Colors.grey,
+                  totalMarks == 100 ? primaryBlue : Colors.grey,
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 child: const Text(

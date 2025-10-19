@@ -16,65 +16,21 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
   final String teacherEmail = 'teacher@riphah.edu.pk';
   final String session = 'Fall 2025';
 
-  // ✅ Sample Data (You can replace with your actual data later)
   final Map<String, List<Map<String, dynamic>>> resultData = {
     'Mobile Application Development': [
-      {
-        'id': '101',
-        'name': 'Ali',
-        'quiz': 20,
-        'assignment': 25,
-        'mid': 25,
-        'final': 30,
-      },
-      {
-        'id': '102',
-        'name': 'Hassan',
-        'quiz': 18,
-        'assignment': 20,
-        'mid': 22,
-        'final': 25,
-      },
-      {
-        'id': '103',
-        'name': 'Sara',
-        'quiz': 25,
-        'assignment': 28,
-        'mid': 24,
-        'final': 20,
-      },
+      {'id': '101', 'name': 'Ali', 'quiz': 20, 'assignment': 25, 'mid': 25, 'final': 30},
+      {'id': '102', 'name': 'Hassan', 'quiz': 18, 'assignment': 20, 'mid': 22, 'final': 25},
+      {'id': '103', 'name': 'Sara', 'quiz': 25, 'assignment': 28, 'mid': 24, 'final': 20},
     ],
     'Web Programming': [
-      {
-        'id': '201',
-        'name': 'Usman',
-        'quiz': 15,
-        'assignment': 20,
-        'mid': 30,
-        'final': 35,
-      },
-      {
-        'id': '202',
-        'name': 'Rafay',
-        'quiz': 22,
-        'assignment': 25,
-        'mid': 20,
-        'final': 30,
-      },
-      {
-        'id': '203',
-        'name': 'Ayesha',
-        'quiz': 28,
-        'assignment': 30,
-        'mid': 20,
-        'final': 22,
-      },
+      {'id': '201', 'name': 'Usman', 'quiz': 15, 'assignment': 20, 'mid': 30, 'final': 35},
+      {'id': '202', 'name': 'Rafay', 'quiz': 22, 'assignment': 25, 'mid': 20, 'final': 30},
+      {'id': '203', 'name': 'Ayesha', 'quiz': 28, 'assignment': 30, 'mid': 20, 'final': 22},
     ],
   };
 
   String? selectedCourse;
 
-  // ✅ Grade calculator
   String getGrade(double total) {
     if (total >= 85) return 'A';
     if (total >= 70) return 'B';
@@ -83,7 +39,6 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
     return 'F';
   }
 
-  // ✅ Generate PDF Report
   Future<void> _generatePdf(BuildContext context) async {
     if (selectedCourse == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -98,14 +53,8 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
     final headers = ['ID', 'Name', 'Quiz', 'Assignment', 'Mid', 'Final', 'Total', 'Grade'];
 
     final dataRows = resultData[course]!.map((student) {
-      final total = (student['quiz'] +
-          student['assignment'] +
-          student['mid'] +
-          student['final'])
-          .toDouble();
-
+      final total = (student['quiz'] + student['assignment'] + student['mid'] + student['final']).toDouble();
       final grade = getGrade(total);
-
       return [
         student['id'].toString(),
         student['name'],
@@ -114,7 +63,7 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
         student['mid'].toString(),
         student['final'].toString(),
         total.toStringAsFixed(1),
-        grade
+        grade,
       ];
     }).toList();
 
@@ -126,16 +75,12 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
             child: pw.Column(
               children: [
                 pw.Text('Riphah International University',
-                    style: pw.TextStyle(
-                        fontSize: 18, fontWeight: pw.FontWeight.bold)),
+                    style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold)),
                 pw.SizedBox(height: 4),
-                pw.Text('Result Report - $session',
-                    style: const pw.TextStyle(fontSize: 12)),
+                pw.Text('Result Report - $session', style: const pw.TextStyle(fontSize: 12)),
                 pw.SizedBox(height: 6),
-                pw.Text('Course: $course',
-                    style: const pw.TextStyle(fontSize: 12)),
-                pw.Text('Teacher: $teacherName',
-                    style: const pw.TextStyle(fontSize: 12)),
+                pw.Text('Course: $course', style: const pw.TextStyle(fontSize: 12)),
+                pw.Text('Teacher: $teacherName', style: const pw.TextStyle(fontSize: 12)),
                 pw.SizedBox(height: 10),
               ],
             ),
@@ -149,10 +94,8 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
                   headers: headers,
                   data: dataRows,
                   border: pw.TableBorder.all(width: 0.5),
-                  headerDecoration:
-                  const pw.BoxDecoration(color: PdfColors.grey300),
-                  headerStyle: pw.TextStyle(
-                      fontWeight: pw.FontWeight.bold, fontSize: 10),
+                  headerDecoration: const pw.BoxDecoration(color: PdfColors.grey300),
+                  headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 10),
                   cellStyle: const pw.TextStyle(fontSize: 9),
                   cellAlignment: pw.Alignment.center,
                 ),
@@ -163,35 +106,34 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
           pw.Row(
             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
             children: [
-              pw.Text('Exported by: $teacherEmail',
-                  style: const pw.TextStyle(fontSize: 9)),
-              pw.Text('Generated: ${DateTime.now().toLocal()}',
-                  style: const pw.TextStyle(fontSize: 9)),
+              pw.Text('Exported by: $teacherEmail', style: const pw.TextStyle(fontSize: 9)),
+              pw.Text('Generated: ${DateTime.now().toLocal()}', style: const pw.TextStyle(fontSize: 9)),
             ],
           ),
         ],
         footer: (context) => pw.Align(
           alignment: pw.Alignment.centerRight,
-          child: pw.Text(
-            'Page ${context.pageNumber}',
-            style: const pw.TextStyle(fontSize: 9),
-          ),
+          child: pw.Text('Page ${context.pageNumber}', style: const pw.TextStyle(fontSize: 9)),
         ),
       ),
     );
 
     final fileName = '${course.replaceAll(' ', '_')}_Result_$session.pdf';
-
-    await Printing.layoutPdf(
-      name: fileName,
-      onLayout: (PdfPageFormat format) async => pdf.save(),
-    );
+    await Printing.layoutPdf(name: fileName, onLayout: (PdfPageFormat format) async => pdf.save());
   }
 
   @override
   Widget build(BuildContext context) {
+    const primaryBlue = Color(0xFF0A73B7);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Export Result Report')),
+      appBar: AppBar(
+        title: const Text('Export Result Report'),
+        backgroundColor: Colors.white,
+        foregroundColor: primaryBlue,
+        elevation: 1,
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -200,8 +142,7 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
               decoration: const InputDecoration(labelText: 'Select Course'),
               value: selectedCourse,
               items: resultData.keys
-                  .map((course) =>
-                  DropdownMenuItem(value: course, child: Text(course)))
+                  .map((course) => DropdownMenuItem(value: course, child: Text(course)))
                   .toList(),
               onChanged: (value) => setState(() => selectedCourse = value),
             ),
@@ -211,8 +152,10 @@ class _ExportResultReportScreenState extends State<ExportResultReportScreen> {
               label: const Text('Export Result as PDF'),
               onPressed: () => _generatePdf(context),
               style: ElevatedButton.styleFrom(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                backgroundColor: primaryBlue,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                textStyle: const TextStyle(fontSize: 16),
               ),
             ),
           ],

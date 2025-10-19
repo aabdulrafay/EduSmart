@@ -63,7 +63,7 @@ class _ExportAttendanceScreenState extends State<ExportAttendanceScreen> {
 
     final dates = attendanceData[course]!.keys.toList()..sort();
 
-    // Collect all unique students
+    // Collect all students for the selected course
     final students = attendanceData[course]!.values
         .expand((list) => list)
         .fold<Map<String, String>>({}, (map, student) {
@@ -85,6 +85,7 @@ class _ExportAttendanceScreenState extends State<ExportAttendanceScreen> {
       return [id, name, ...statuses];
     }).toList();
 
+    // Build PDF file
     pdf.addPage(
       pw.MultiPage(
         orientation: pw.PageOrientation.landscape,
@@ -108,7 +109,6 @@ class _ExportAttendanceScreenState extends State<ExportAttendanceScreen> {
             ),
           ),
 
-          // ✅ Center + Auto-fit the table nicely
           pw.Center(
             child: pw.Container(
               alignment: pw.Alignment.center,
@@ -160,15 +160,20 @@ class _ExportAttendanceScreenState extends State<ExportAttendanceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const primaryColor = Color(0xFF0A73B7);
+
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Export Attendance Report'),
+        title: const Text('Export Attendance Report'),
+        backgroundColor: Colors.white,
+        foregroundColor: primaryColor,
+        elevation: 1,
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-      ),
+          color: primaryColor,
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -188,8 +193,9 @@ class _ExportAttendanceScreenState extends State<ExportAttendanceScreen> {
               icon: const Icon(Icons.picture_as_pdf),
               label: const Text('Export Report as PDF'),
               style: ElevatedButton.styleFrom(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                backgroundColor: primaryColor,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
               onPressed: () => _generatePdf(context),
             ),

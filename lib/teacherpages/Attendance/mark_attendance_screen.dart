@@ -8,7 +8,6 @@ class MarkAttendanceScreen extends StatefulWidget {
 }
 
 class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
-  // Courses assigned to teacher
   final List<String> courses = [
     'Mobile Application Development',
     'Web Programming',
@@ -16,7 +15,6 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     'Database Management Systems'
   ];
 
-  // Class timings managed by Admin
   final Map<String, List<String>> classTimings = {
     'Mobile Application Development': ['09:00 AM - 10:00 AM', '03:00 PM - 04:00 PM'],
     'Web Programming': ['10:00 AM - 11:00 AM'],
@@ -24,7 +22,6 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     'Database Management Systems': ['01:00 PM - 02:00 PM'],
   };
 
-  // Dummy students list for each course
   final Map<String, List<String>> students = {
     'Mobile Application Development': ['Ali', 'Hassan', 'Sara'],
     'Web Programming': ['Usman', 'Rafay', 'Ayesha'],
@@ -35,12 +32,10 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
   String? selectedCourse;
   String? selectedTiming;
   DateTime selectedDate = DateTime.now();
-  Map<String, bool> studentAttendance = {}; // To store attendance marks
+  Map<String, bool> studentAttendance = {};
 
-  // Attendance records (history)
   final List<Map<String, String>> attendanceRecords = [];
 
-  // Select Date
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -55,7 +50,6 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     }
   }
 
-  // When course is selected
   void _onCourseChange(String? course) {
     setState(() {
       selectedCourse = course;
@@ -70,7 +64,6 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
     });
   }
 
-  // Submit Attendance
   void _submitAttendance() {
     if (selectedCourse == null || selectedTiming == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -79,7 +72,6 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
       return;
     }
 
-    // Current timestamp
     final submissionTime = DateTime.now().toLocal().toString().split('.')[0];
 
     setState(() {
@@ -90,7 +82,6 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
         'submittedAt': submissionTime,
       });
 
-      // Reset attendance checkboxes after submission
       studentAttendance.updateAll((key, value) => false);
     });
 
@@ -108,137 +99,145 @@ class _MarkAttendanceScreenState extends State<MarkAttendanceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const primaryColor = Color(0xFF0A73B7);
     final today = selectedDate.toLocal().toString().split(' ')[0];
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: primaryColor,
         title: const Text('Mark Attendance'),
+        elevation: 1,
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          color: primaryColor,
+          onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Course Selection
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Select Course'),
-              value: selectedCourse,
-              items: courses
-                  .map((course) =>
-                  DropdownMenuItem(value: course, child: Text(course)))
-                  .toList(),
-              onChanged: _onCourseChange,
-            ),
-
-            const SizedBox(height: 16),
-
-            // Date Selection
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //button padding
-                Text('Selected Date: $today'),
-                ElevatedButton(
-                  onPressed: () => _selectDate(context),
-                  child: const Text('Select Date'),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                ),
-            ),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Timing Selection (from admin-managed timings)
-            if (selectedCourse != null)
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Course selection
               DropdownButtonFormField<String>(
-                decoration:
-                const InputDecoration(labelText: 'Select Class Timing'),
-                value: selectedTiming,
-                items: classTimings[selectedCourse]!
-                    .map((timing) =>
-                    DropdownMenuItem(value: timing, child: Text(timing)))
+                decoration: const InputDecoration(labelText: 'Select Course'),
+                value: selectedCourse,
+                items: courses
+                    .map((course) => DropdownMenuItem(
+                  value: course,
+                  child: Text(course),
+                ))
                     .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedTiming = value;
-                  });
-                },
+                onChanged: _onCourseChange,
               ),
 
-            const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            // Student List
-            Expanded(
-              child: selectedCourse == null
-                  ? const Center(child: Text('Please select a course'))
-                  : students[selectedCourse] == null ||
-                  students[selectedCourse]!.isEmpty
-                  ? const Center(child: Text('No students found'))
-                  : ListView(
-                children: students[selectedCourse]!
-                    .map(
-                      (student) => CheckboxListTile(
-                    title: Text(student),
-                    value: studentAttendance[student] ?? false,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        studentAttendance[student] = value!;
-                      });
-                    },
-                  ),
-                )
-                    .toList(),
-              ),
-            ),
-
-            const SizedBox(height: 8),
-
-            // Submit Button
-            Center(
-              child: ElevatedButton(
-                onPressed: _submitAttendance,
-                child: const Text('Submit Attendance'),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 12),
-              ),
-            ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Attendance Records List
-            const Text(
-              'Submitted Records:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: attendanceRecords.length,
-                itemBuilder: (context, index) {
-                  final record = attendanceRecords[index];
-                  return ListTile(
-                    title: Text(record['course']!),
-                    subtitle: Text(
-                      'Date: ${record['date']}\n'
-                          'Time: ${record['time']}\n'
-                          'Submitted At: ${record['submittedAt']}',
+              // Date selection
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Selected Date: $today'),
+                  ElevatedButton(
+                    onPressed: () => _selectDate(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     ),
-                  );
-                },
+                    child: const Text('Select Date'),
+                  ),
+                ],
               ),
-            ),
-          ],
+
+              const SizedBox(height: 16),
+
+              // Class timing selection
+              if (selectedCourse != null)
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(labelText: 'Select Class Timing'),
+                  value: selectedTiming,
+                  items: classTimings[selectedCourse]!
+                      .map((timing) => DropdownMenuItem(value: timing, child: Text(timing)))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() => selectedTiming = value);
+                  },
+                ),
+
+              const SizedBox(height: 16),
+
+              // Student list
+              Expanded(
+                child: selectedCourse == null
+                    ? const Center(child: Text('Please select a course'))
+                    : ListView(
+                  children: students[selectedCourse]!
+                      .map(
+                        (student) => CheckboxListTile(
+                      title: Text(student),
+                      value: studentAttendance[student] ?? false,
+                      activeColor: primaryColor,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          studentAttendance[student] = value!;
+                        });
+                      },
+                    ),
+                  )
+                      .toList(),
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              // Submit button
+              Center(
+                child: ElevatedButton.icon(
+                  onPressed: _submitAttendance,
+                  icon: const Icon(Icons.check_circle_outline),
+                  label: const Text('Submit Attendance'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Attendance records
+              const Text(
+                'Submitted Records:',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+
+              Expanded(
+                child: ListView.builder(
+                  itemCount: attendanceRecords.length,
+                  itemBuilder: (context, index) {
+                    final record = attendanceRecords[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      child: ListTile(
+                        leading: const Icon(Icons.fact_check_outlined, color: primaryColor),
+                        title: Text(record['course']!),
+                        subtitle: Text(
+                          'Date: ${record['date']}\n'
+                              'Time: ${record['time']}\n'
+                              'Submitted At: ${record['submittedAt']}',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

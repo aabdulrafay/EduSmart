@@ -13,7 +13,7 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     const primaryBlue = Color(0xFF0A73B7);
 
-    // 🔹 List of dashboard feature cards
+    // List of dashboard feature cards
     final List<Widget> featureCards = [
       _buildFeatureCard(
         context: context,
@@ -56,7 +56,7 @@ class DashboardView extends StatelessWidget {
       ),
     ];
 
-    // 🔹 Add “Manage Admins” card only if admin is verified
+    // Add “Manage Admins” card only if admin is verified
     if (isVerified) {
       featureCards.add(
         _buildFeatureCard(
@@ -97,7 +97,7 @@ class DashboardView extends StatelessWidget {
     );
   }
 
-  /// 🔹 Reusable card widget
+  // Reusable card widget
   static Widget _buildFeatureCard({
     required BuildContext context,
     required IconData icon,
