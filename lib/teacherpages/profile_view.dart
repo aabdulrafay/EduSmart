@@ -1,6 +1,6 @@
 //teacher profile view simple outstanding with log out button
 import 'package:flutter/material.dart';
-import 'package:edusmart/login_screen.dart';
+import 'package:edusmart/pages/login_screen.dart';
 
 class TeacherProfileView extends StatelessWidget {
   final String name;

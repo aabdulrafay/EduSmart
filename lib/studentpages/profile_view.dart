@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../login_screen.dart';
+import 'package:edusmart/pages/login_screen.dart';
 
 class StudentProfileView extends StatelessWidget {
   final String name;

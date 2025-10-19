@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
-import 'splash_screen.dart'; // make sure you have your SplashScreen.dart file
+import 'pages/splash_screen.dart'; // updated path
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const primaryBlue = Color(0xFF0A73B7); // custom blue
+    const primaryBlue = Color(0xFF0A73B7);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'EduSmart',
       theme: ThemeData(
         brightness: Brightness.light,
-
-        // Primary color scheme
         primaryColor: primaryBlue,
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: const Color(0xFFF5F5F7),
 
-        // AppBar theme
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           foregroundColor: primaryBlue,
@@ -36,10 +31,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // Icon color across app
         iconTheme: const IconThemeData(color: primaryBlue),
 
-        // TextField / Input Field theme
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,
@@ -47,19 +40,11 @@ class MyApp extends StatelessWidget {
           const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
           hintStyle: TextStyle(color: Colors.grey[400]),
           prefixIconColor: primaryBlue,
-
-          // Floating label (placeholder when focused)
           floatingLabelStyle: const TextStyle(
             color: primaryBlue,
             fontWeight: FontWeight.bold,
           ),
-
-          // Cursor and underline colors handled by theme below
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12.0)),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12.0)),
             borderSide: BorderSide.none,
           ),
@@ -69,14 +54,12 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // Blue cursor globally
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: primaryBlue,
-          selectionColor: Color(0x332196F3), // light blue highlight
+          selectionColor: Color(0x332196F3),
           selectionHandleColor: primaryBlue,
         ),
 
-        // Button styling
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryBlue,
@@ -88,7 +71,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // Bottom navigation bar theme
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
           selectedItemColor: primaryBlue,
@@ -101,7 +83,7 @@ class MyApp extends StatelessWidget {
           elevation: 8.0,
         ),
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

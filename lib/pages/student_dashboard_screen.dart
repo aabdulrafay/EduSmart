@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:edusmart/studentpages/dashbaord_view.dart';
-import './studentpages/enrollment_view.dart';
-import './studentpages/grades_view.dart';
-import './studentpages/profile_view.dart';
+import 'package:edusmart/studentpages/enrollment_view.dart';
+import 'package:edusmart/studentpages/grades_view.dart';
+import 'package:edusmart/studentpages/profile_view.dart';
 
 class StudentDashboardScreen extends StatefulWidget {
   const StudentDashboardScreen({super.key});

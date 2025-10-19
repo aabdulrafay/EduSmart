@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import './admin_dashboard_screen.dart';
-import './teacher_dashboard_screen.dart';
-import './student_dashboard_screen.dart';
-import './forgot_password_screen.dart';
+import 'admin_dashboard_screen.dart';
+import 'teacher_dashboard_screen.dart';
+import 'student_dashboard_screen.dart';
+import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Image.asset('images/logo.png', height: 150.0),
+                  Image.asset('assets/images/logo.png', height: 150.0),
                   const SizedBox(height: 16.0),
                   const Text(
                     'Welcome to EduSmart',

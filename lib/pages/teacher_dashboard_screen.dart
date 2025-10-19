@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './teacherpages/dashboard_view.dart';
-import './teacherpages/profile_view.dart';
+import 'package:edusmart/teacherpages/dashboard_view.dart';
+import 'package:edusmart/teacherpages/profile_view.dart';
 
 class TeacherDashboardScreen extends StatefulWidget {
   @override

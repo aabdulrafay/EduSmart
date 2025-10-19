@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import './adminpages/dashboard_view.dart';
-import './adminpages/report_view.dart';
-import './adminpages/admin_profile_view.dart';
+import '../adminpages/dashboard_view.dart';
+import '../adminpages/report_view.dart';
+import '../adminpages/admin_profile_view.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   const AdminDashboardScreen({super.key});
