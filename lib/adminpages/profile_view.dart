@@ -1,34 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:edusmart/pages/login_screen.dart';
 
-class TeacherProfileView extends StatelessWidget {
+class AdminProfileView extends StatelessWidget {
   final String name;
-  final String department;
-  final String designation;
-  final String bio;
-  final String profileImageUrl;
+  final String role;
   final String email;
+  final String employeeId;
   final String phone;
-  final String cnic;
-  final String address;
-  final String gender;
-  final String dateOfBirth;
-  final String qualification;
+  final String profileImageUrl;
+  final bool isVerified;
 
-  const TeacherProfileView({
+  const AdminProfileView({
     super.key,
     required this.name,
-    required this.department,
-    required this.designation,
-    required this.bio,
-    required this.profileImageUrl,
+    required this.role,
     required this.email,
+    required this.employeeId,
     required this.phone,
-    required this.cnic,
-    required this.address,
-    required this.gender,
-    required this.dateOfBirth,
-    required this.qualification,
+    required this.profileImageUrl,
+    this.isVerified = true,
   });
 
   @override
@@ -37,7 +27,7 @@ class TeacherProfileView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Teacher Profile'),
+        title: const Text('Admin Profile'),
         backgroundColor: Colors.white,
         foregroundColor: primaryBlue,
         centerTitle: true,
@@ -49,72 +39,66 @@ class TeacherProfileView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // 🔹 Profile Picture
+              // Profile Picture
               CircleAvatar(
                 radius: 60,
                 backgroundImage: NetworkImage(profileImageUrl),
               ),
               const SizedBox(height: 16.0),
 
-              // 🔹 Basic Info
-              Text(
-                name,
-                style:
-                const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              // Name + Verified Badge
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (isVerified)
+                    const Padding(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Icon(
+                        Icons.verified,
+                        color: Colors.blue,
+                        size: 22,
+                      ),
+                    ),
+                ],
               ),
+
               const SizedBox(height: 8.0),
               Text(
-                designation,
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
-              ),
-              Text(
-                department,
-                style: const TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-
-              const SizedBox(height: 20.0),
-              const Divider(),
-
-              // Bio Section
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'About Me',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: primaryBlue),
+                role,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 8.0),
-              Text(
-                bio,
-                style: const TextStyle(fontSize: 16, height: 1.4),
-                textAlign: TextAlign.justify,
-              ),
-              const SizedBox(height: 20.0),
+
+              const SizedBox(height: 24.0),
               const Divider(),
 
-              // Contact Information Section
+              // Info Section Title
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Contact Information',
+                  'Admin Information',
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: primaryBlue),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: primaryBlue,
+                  ),
                 ),
               ),
               const SizedBox(height: 10.0),
 
-              _buildInfoTile(Icons.email, 'Email', email),
-              _buildInfoTile(Icons.phone, 'Phone', phone),
-              _buildInfoTile(Icons.credit_card, 'CNIC', cnic),
-              _buildInfoTile(Icons.home, 'Address', address),
-              _buildInfoTile(Icons.person, 'Gender', gender),
-              _buildInfoTile(Icons.cake, 'Date of Birth', dateOfBirth),
-              _buildInfoTile(Icons.school, 'Qualification', qualification),
+              _buildInfoCard(Icons.email_outlined, 'Email', email),
+              _buildInfoCard(Icons.phone_outlined, 'Phone', phone),
+              _buildInfoCard(Icons.badge_outlined, 'Employee ID', employeeId),
 
               const SizedBox(height: 30.0),
 
@@ -154,8 +138,8 @@ class TeacherProfileView extends StatelessWidget {
     );
   }
 
-  // Reusable widget for contact info rows
-  Widget _buildInfoTile(IconData icon, String label, String value) {
+  // Reusable Card for Info
+  Widget _buildInfoCard(IconData icon, String title, String value) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6.0),
       elevation: 2,
@@ -163,7 +147,7 @@ class TeacherProfileView extends StatelessWidget {
       child: ListTile(
         leading: Icon(icon, color: Colors.blue),
         title: Text(
-          label,
+          title,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15,
