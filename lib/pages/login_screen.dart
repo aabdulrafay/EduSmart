@@ -4,6 +4,7 @@ import 'teacher_dashboard_screen.dart';
 import 'student_dashboard_screen.dart';
 import 'forgot_password_screen.dart';
 
+// Login Screen allows admin, teacher, and student to log in.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -12,33 +13,40 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  // Controllers to get user input
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
+    // Dispose controllers to free memory
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
+  // Handle login logic
   void _handleLogin() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
 
     if (email == 'admin' && password == 'admin') {
+      // Go to Admin Dashboard
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AdminDashboardScreen()),
       );
     } else if (email == 'teacher' && password == 'teacher') {
+      // Go to Teacher Dashboard
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => TeacherDashboardScreen()),
       );
     } else if (email == 'student' && password == 'student') {
+      // Go to Student Dashboard
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const StudentDashboardScreen()),
       );
     } else {
+      // Show error using SnackBar
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Invalid email or password.'),
@@ -50,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFF0A73B7);
+    const primaryColor = Color(0xFF0A73B7); // EduSmart blue
 
     return Theme(
       data: ThemeData(
@@ -65,11 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       child: Scaffold(
+        backgroundColor: const Color(0xFFF5F5F7),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -79,10 +87,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text(
                     'Welcome to EduSmart',
                     textAlign: TextAlign.center,
-                    style:
-                    TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8.0),
+
                   const Text(
                     'Sign in to continue',
                     textAlign: TextAlign.center,
@@ -90,14 +98,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 48.0),
 
+                  // Email Field
                   TextField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: primaryColor,
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      prefixIcon:
-                      Icon(Icons.email_outlined, color: primaryColor),
+                      prefixIcon: const Icon(Icons.email_outlined, color: primaryColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
@@ -105,14 +113,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 16.0),
 
+                  // Password Field
                   TextField(
                     controller: _passwordController,
                     obscureText: true,
                     cursorColor: primaryColor,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      prefixIcon:
-                      Icon(Icons.lock_outline, color: primaryColor),
+                      prefixIcon: const Icon(Icons.lock_outline, color: primaryColor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
@@ -120,6 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 24.0),
 
+                  // Login Button
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
@@ -129,30 +138,38 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: _handleLogin,
-                    child: const Text('Login',
-                        style:
-                        TextStyle(fontSize: 18, color: Colors.white)),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
                   ),
                   const SizedBox(height: 12.0),
 
+                  // Forgot Password Link
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
-                          );
-                        },
-                        child: const Text('Forgot Password?', style: TextStyle(color: primaryColor)),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
+                        );
+                      },
+                      child: const Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: primaryColor),
+                      ),
                     ),
                   ),
+
                   const SizedBox(height: 24.0),
+
+                  // Support Text
                   Wrap(
                     alignment: WrapAlignment.center,
                     children: [
                       const Text(
-                        "In order to any problem contact admin at ",
+                        "In case of any issue, contact admin at ",
                         style: TextStyle(color: Colors.grey),
                       ),
                       GestureDetector(
