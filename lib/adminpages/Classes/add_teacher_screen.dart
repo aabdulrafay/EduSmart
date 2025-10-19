@@ -5,65 +5,89 @@ class AddTeacherScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const primaryBlue = Color(0xFF0A73B7);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add New Teacher'),
+        backgroundColor: Colors.white,
+        foregroundColor: primaryBlue,
+        elevation: 1,
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
       ),
+
+      // Form Body
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Teacher Name',
-                border: OutlineInputBorder(),
-              ),
+            _buildTextField(label: 'Teacher Name', icon: Icons.person_outline),
+            const SizedBox(height: 16),
+            _buildTextField(label: 'Department', icon: Icons.account_tree_outlined),
+            const SizedBox(height: 16),
+            _buildTextField(label: 'Designation', icon: Icons.work_outline),
+            const SizedBox(height: 16),
+            _buildTextField(
+              label: 'Email',
+              icon: Icons.email_outlined,
+              inputType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 16.0),
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Department',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Designation',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-              ),
+            const SizedBox(height: 28),
+
+            // Add Button
+            ElevatedButton.icon(
               onPressed: () {
-                final snackBar = SnackBar(
-                  content: const Text('Teacher Added Successfully!'),
-                  backgroundColor: Colors.green,
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Teacher Added Successfully!'),
+                    backgroundColor: Colors.green,
+                  ),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.of(context).pop();
               },
-              child: const Text('Add Teacher'),
+              icon: const Icon(Icons.check_circle_outline),
+              label: const Text(
+                'Add Teacher',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryBlue,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  // 🔹 Reusable TextField Widget
+  Widget _buildTextField({
+    required String label,
+    required IconData icon,
+    TextInputType inputType = TextInputType.text,
+  }) {
+    const primaryBlue = Color(0xFF0A73B7);
+
+    return TextField(
+      keyboardType: inputType,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon, color: primaryBlue),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: primaryBlue, width: 2),
         ),
       ),
     );

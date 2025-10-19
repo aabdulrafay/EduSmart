@@ -39,58 +39,91 @@ class _EditStudentScreenState extends State<EditStudentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const primaryBlue = Color(0xFF0A73B7);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Student'),
+        backgroundColor: Colors.white,
+        foregroundColor: primaryBlue,
+        centerTitle: true,
+        elevation: 1,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Padding(
+
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 8),
+            const Text(
+              'Update Student Details',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+
+            // Student Name
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
                 labelText: 'Student Name',
+                prefixIcon: Icon(Icons.person_outline),
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 16),
+
+            // SAP ID
             TextField(
               controller: sapIdController,
               decoration: const InputDecoration(
                 labelText: 'SAP ID',
+                prefixIcon: Icon(Icons.badge_outlined),
                 border: OutlineInputBorder(),
               ),
+              keyboardType: TextInputType.number,
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 16),
+
+            // Department
             TextField(
               controller: departmentController,
               decoration: const InputDecoration(
                 labelText: 'Department',
+                prefixIcon: Icon(Icons.apartment_outlined),
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
+            const SizedBox(height: 24),
+
+            // Update Button
+            ElevatedButton.icon(
+              icon: const Icon(Icons.save_outlined),
+              label: const Text(
+                'Update Details',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                backgroundColor: primaryBlue,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               onPressed: () {
-                final snackBar = SnackBar(
-                  content: const Text('Student Details Updated Successfully!'),
-                  backgroundColor: Colors.green,
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Student Details Updated Successfully!'),
+                    backgroundColor: Colors.green,
+                  ),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.of(context).pop();
               },
-              child: const Text('Update Details'),
             ),
           ],
         ),

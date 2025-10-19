@@ -8,7 +8,6 @@ class ManageAdminsScreen extends StatefulWidget {
 }
 
 class _ManageAdminsScreenState extends State<ManageAdminsScreen> {
-  // Example list of admins (in real app, these could come from a database)
   final List<Map<String, dynamic>> _admins = [
     {
       'name': 'Ali Raza',
@@ -54,16 +53,16 @@ class _ManageAdminsScreenState extends State<ManageAdminsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: primaryBlue,
-        onPressed: () {
-          _showAddAdminDialog(context);
-        },
-        child: const Icon(Icons.add),
+        onPressed: () => _showAddAdminDialog(context),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
 
-  // Reusable Card for each Admin
+  // Reusable Admin Card
   Widget _buildAdminCard(Map<String, dynamic> admin) {
+    const primaryBlue = Color(0xFF0A73B7);
+
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       elevation: 3,
@@ -74,56 +73,93 @@ class _ManageAdminsScreenState extends State<ManageAdminsScreen> {
           child: Text(
             admin['name'][0],
             style: const TextStyle(
-              color: Colors.blue,
+              color: primaryBlue,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
         title: Text(
           admin['name'],
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
-        subtitle: Text('${admin['role']}\n${admin['email']}'),
+        subtitle: Text(
+          '${admin['role']}\n${admin['email']}',
+          style: const TextStyle(color: Colors.black54, height: 1.3),
+        ),
         isThreeLine: true,
-        trailing: admin['verified']
-            ? const Icon(Icons.verified, color: Colors.blue)
-            : const Icon(Icons.pending_outlined, color: Colors.grey),
-        onTap: () {
-          _showAdminDetails(context, admin);
-        },
+        trailing: Icon(
+          admin['verified'] ? Icons.verified : Icons.pending_outlined,
+          color: admin['verified'] ? Colors.blue : Colors.grey,
+        ),
+        onTap: () => _showAdminDetails(context, admin),
       ),
     );
   }
 
-  /// 🔹 Dialog to Show Full Admin Details
+  // View Admin Details Dialog
   void _showAdminDetails(BuildContext context, Map<String, dynamic> admin) {
+    const primaryBlue = Color(0xFF0A73B7);
+
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text(admin['name']),
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: Colors.blue.shade100,
+              child: Text(
+                admin['name'][0],
+                style: const TextStyle(color: primaryBlue),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                admin['name'],
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Role: ${admin['role']}'),
-            Text('Email: ${admin['email']}'),
-            Text('Verified: ${admin['verified'] ? "Yes" : "No"}'),
+            _infoRow('Role', admin['role']),
+            _infoRow('Email', admin['email']),
+            _infoRow('Verified', admin['verified'] ? 'Yes' : 'No'),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
+            child: const Text('Close', style: TextStyle(color: Colors.grey)),
           ),
         ],
       ),
     );
   }
 
-  // Dialog to Add a New Admin (Demo UI only)
+  // Helper Widget for Info Display
+  Widget _infoRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('$label:', style: const TextStyle(fontWeight: FontWeight.bold)),
+          Flexible(child: Text(value)),
+        ],
+      ),
+    );
+  }
+
+  // Add Admin Dialog
   void _showAddAdminDialog(BuildContext context) {
     final TextEditingController nameController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController roleController = TextEditingController();
+
+    const primaryBlue = Color(0xFF0A73B7);
 
     showDialog(
       context: context,
@@ -134,25 +170,34 @@ class _ManageAdminsScreenState extends State<ManageAdminsScreen> {
           children: [
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Full Name',
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: const Icon(Icons.person),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
             const SizedBox(height: 10),
             TextField(
               controller: emailController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Email',
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: const Icon(Icons.email_outlined),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
             const SizedBox(height: 10),
             TextField(
               controller: roleController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Role',
-                prefixIcon: Icon(Icons.work_outline),
+                prefixIcon: const Icon(Icons.work_outline),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
           ],
@@ -160,10 +205,33 @@ class _ManageAdminsScreenState extends State<ManageAdminsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
           ),
-          ElevatedButton(
+          ElevatedButton.icon(
+            icon: const Icon(Icons.save),
+            label: const Text('Add', style: TextStyle(fontWeight: FontWeight.bold)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: primaryBlue,
+              foregroundColor: Colors.white,
+              padding:
+              const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             onPressed: () {
+              if (nameController.text.isEmpty ||
+                  emailController.text.isEmpty ||
+                  roleController.text.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please fill all fields before adding.'),
+                    backgroundColor: Colors.redAccent,
+                  ),
+                );
+                return;
+              }
+
               setState(() {
                 _admins.add({
                   'name': nameController.text,
@@ -172,9 +240,16 @@ class _ManageAdminsScreenState extends State<ManageAdminsScreen> {
                   'verified': false,
                 });
               });
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content:
+                  Text('Admin "${nameController.text}" added successfully!'),
+                  backgroundColor: Colors.green,
+                ),
+              );
               Navigator.pop(context);
             },
-            child: const Text('Add'),
           ),
         ],
       ),
