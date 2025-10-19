@@ -9,15 +9,21 @@ class TeacherDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const primaryBlue = Color(0xFF0A73B7);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
+        backgroundColor: Colors.white,
+        foregroundColor: primaryBlue,
+        elevation: 1,
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: GridView.count(
-            crossAxisCount: 2,
+            crossAxisCount: 2, // two cards in a row
             crossAxisSpacing: 16.0,
             mainAxisSpacing: 16.0,
             children: <Widget>[
@@ -28,7 +34,9 @@ class TeacherDashboard extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MarkAttendanceScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const MarkAttendanceScreen(),
+                    ),
                   );
                 },
               ),
@@ -39,7 +47,9 @@ class TeacherDashboard extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ExportAttendanceScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const ExportAttendanceScreen(),
+                    ),
                   );
                 },
               ),
@@ -50,7 +60,9 @@ class TeacherDashboard extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const TeacherCoursesScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const TeacherCoursesScreen(),
+                    ),
                   );
                 },
               ),
@@ -61,7 +73,9 @@ class TeacherDashboard extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ExportResultReportScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const ExportResultReportScreen(),
+                    ),
                   );
                 },
               ),
@@ -72,7 +86,7 @@ class TeacherDashboard extends StatelessWidget {
     );
   }
 
-  // Reusable card widget
+  // Reusable card widget for each dashboard feature
   Widget _buildFeatureCard({
     required IconData icon,
     required String title,
@@ -80,8 +94,8 @@ class TeacherDashboard extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return SizedBox(
-      width: 140,  // Adjusted width
-      height: 140, // Adjusted height
+      width: 140,
+      height: 140,
       child: Card(
         elevation: 4.0,
         shape: RoundedRectangleBorder(
@@ -90,11 +104,12 @@ class TeacherDashboard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(12.0),
+          splashColor: Colors.blue.withOpacity(0.2),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(icon, size: 48.0, color: Colors.blue),
-              const SizedBox(height: 14.0),
+              Icon(icon, size: 50.0, color: Colors.blue),
+              const SizedBox(height: 12.0),
               Text(
                 title,
                 textAlign: TextAlign.center,
