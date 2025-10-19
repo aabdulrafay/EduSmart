@@ -77,9 +77,8 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const StudentGradesView(
-                        enrolledCourses: [],
-                        resultsSubmitted: false,
-                        resultsMap: {},
+                        resultsSubmitted: true,
+                        resultsBySession: {},
                       ),
                     ),
                   );

@@ -19,9 +19,8 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     const StudentDashboard(),
     const StudentEnrollmentView(),
     const StudentGradesView(
-      enrolledCourses: [],
       resultsSubmitted: true,
-      resultsMap: {},
+      resultsBySession: {},
     ),
     const StudentProfileView(
       name: 'Student Name',
