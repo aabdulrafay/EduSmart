@@ -3,14 +3,18 @@ import 'package:edusmart/teacherpages/dashboard_view.dart';
 import 'package:edusmart/teacherpages/profile_view.dart';
 
 class TeacherDashboardScreen extends StatefulWidget {
-  @override
-  _TeacherDashboardScreenState createState() => _TeacherDashboardScreenState();
-}
-class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
-  int _selectedIndex = 0;
+  const TeacherDashboardScreen({super.key});
 
-  static List<Widget> _widgetOptions = <Widget>[
-    TeacherDashboard(),
+  @override
+  State<TeacherDashboardScreen> createState() => _TeacherDashboardScreenState();
+}
+
+class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
+  int _selectedIndex = 0; // Tracks selected tab index
+
+  // Pages shown for each navigation item
+  static final List<Widget> _widgetOptions = <Widget>[
+    const TeacherDashboard(),
     TeacherProfileView(
       name: 'Teacher Name',
       department: 'Software Engineering',
@@ -22,11 +26,12 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
       cnic: '12345-6789012-3',
       address: 'I-14, Islamabad, Pakistan',
       gender: 'Male',
-      dateOfBirth: '01-01-1980',
+      dateOfBirth: '1980-01-01',
       qualification: 'MSc Computer Science',
     ),
   ];
 
+  // When user taps bottom navigation item
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -35,26 +40,29 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const primaryBlue = Color(0xFF0A73B7);
+
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
+            icon: Icon(Icons.dashboard_outlined),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
             label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: primaryBlue,
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
       ),
     );
   }
 }
-

@@ -11,8 +11,9 @@ class AdminDashboardScreen extends StatefulWidget {
 }
 
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; // For bottom navigation bar selection
 
+  // Pages shown for each bottom nav option
   static final List<Widget> _widgetOptions = <Widget>[
     const DashboardView(),
     const ReportsView(),
@@ -27,6 +28,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     ),
   ];
 
+  // Handle navigation tap
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -42,7 +44,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard_outlined),
             label: 'Dashboard',
