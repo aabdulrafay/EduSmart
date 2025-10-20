@@ -10,12 +10,11 @@ class TeacherDashboardScreen extends StatefulWidget {
 }
 
 class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
-  int _selectedIndex = 0; // Tracks selected tab index
+  int _selectedIndex = 0;
 
-  // Pages shown for each navigation item
   static final List<Widget> _widgetOptions = <Widget>[
     const TeacherDashboard(),
-    TeacherProfileView(
+    const TeacherProfileView(
       name: 'Teacher Name',
       department: 'Software Engineering',
       designation: 'Senior Lecturer',
@@ -26,12 +25,11 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
       cnic: '12345-6789012-3',
       address: 'I-14, Islamabad, Pakistan',
       gender: 'Male',
-      dateOfBirth: '1980-01-01',
+      dateOfBirth: '1995-01-01',
       qualification: 'MSc Computer Science',
     ),
   ];
 
-  // When user taps bottom navigation item
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -43,10 +41,14 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
     const primaryBlue = Color(0xFF0A73B7);
 
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      backgroundColor: Colors.white,
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: primaryBlue,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard_outlined),
@@ -57,11 +59,6 @@ class _TeacherDashboardScreenState extends State<TeacherDashboardScreen> {
             label: 'Profile',
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: primaryBlue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
       ),
     );
   }
