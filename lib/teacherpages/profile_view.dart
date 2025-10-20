@@ -43,132 +43,99 @@ class TeacherProfileView extends StatelessWidget {
         centerTitle: true,
         elevation: 1,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // 🔹 Profile Picture
-              CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(profileImageUrl),
-              ),
-              const SizedBox(height: 16.0),
-
-              // 🔹 Basic Info
-              Text(
-                name,
-                style:
-                const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8.0),
-              Text(
-                designation,
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
-              ),
-              Text(
-                department,
-                style: const TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-
-              const SizedBox(height: 20.0),
-              const Divider(),
-
-              // Bio Section
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'About Me',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: primaryBlue),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 60,
+              backgroundImage: NetworkImage(profileImageUrl),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              name,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              designation,
+              style: const TextStyle(color: Colors.grey),
+            ),
+            Text(
+              department,
+              style: const TextStyle(color: Colors.grey),
+            ),
+            const SizedBox(height: 20),
+            const Divider(),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'About Me',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: primaryBlue,
                 ),
               ),
-              const SizedBox(height: 8.0),
-              Text(
-                bio,
-                style: const TextStyle(fontSize: 16, height: 1.4),
-                textAlign: TextAlign.justify,
-              ),
-              const SizedBox(height: 20.0),
-              const Divider(),
-
-              // Contact Information Section
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Contact Information',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: primaryBlue),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              bio,
+              style: const TextStyle(fontSize: 15, height: 1.4),
+              textAlign: TextAlign.justify,
+            ),
+            const SizedBox(height: 20),
+            const Divider(),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Contact Information',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: primaryBlue,
                 ),
               ),
-              const SizedBox(height: 10.0),
-
-              _buildInfoTile(Icons.email, 'Email', email),
-              _buildInfoTile(Icons.phone, 'Phone', phone),
-              _buildInfoTile(Icons.credit_card, 'CNIC', cnic),
-              _buildInfoTile(Icons.home, 'Address', address),
-              _buildInfoTile(Icons.person, 'Gender', gender),
-              _buildInfoTile(Icons.cake, 'Date of Birth', dateOfBirth),
-              _buildInfoTile(Icons.school, 'Qualification', qualification),
-
-              const SizedBox(height: 30.0),
-
-              // Logout Button
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                        (route) => false,
-                  );
-                },
-                icon: const Icon(Icons.logout),
-                label: const Text('Logout'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade400,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32.0,
-                    vertical: 12.0,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+            ),
+            const SizedBox(height: 10),
+            _infoTile(Icons.email_outlined, 'Email', email),
+            _infoTile(Icons.phone_outlined, 'Phone', phone),
+            _infoTile(Icons.credit_card, 'CNIC', cnic),
+            _infoTile(Icons.home_outlined, 'Address', address),
+            _infoTile(Icons.person_outline, 'Gender', gender),
+            _infoTile(Icons.cake_outlined, 'Date of Birth', dateOfBirth),
+            _infoTile(Icons.school_outlined, 'Qualification', qualification),
+            const SizedBox(height: 30),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      (route) => false,
+                );
+              },
+              icon: const Icon(Icons.logout),
+              label: const Text('Logout'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 32),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  // Reusable widget for contact info rows
-  Widget _buildInfoTile(IconData icon, String label, String value) {
+  Widget _infoTile(IconData icon, String label, String value) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 6.0),
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
-        leading: Icon(icon, color: Colors.blue),
-        title: Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-        ),
+        leading: Icon(icon, color: Color(0xFF0A73B7)),
+        title: Text(label,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
         subtitle: Text(value),
       ),
     );
