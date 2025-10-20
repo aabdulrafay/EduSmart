@@ -5,132 +5,142 @@ import 'manage_students.dart';
 import 'manage_admins.dart';
 
 class DashboardView extends StatelessWidget {
-  final bool isVerified; // Indicates if the admin is verified
+  final bool isVerified;
 
   const DashboardView({super.key, this.isVerified = true});
 
   @override
   Widget build(BuildContext context) {
-    const primaryBlue = Color(0xFF0A73B7);
-
-    // List of dashboard feature cards
-    final List<Widget> featureCards = [
-      _buildFeatureCard(
-        context: context,
-        icon: Icons.book_outlined,
-        title: 'Manage Courses',
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ManageCoursesScreen(),
-            ),
-          );
-        },
-      ),
-      _buildFeatureCard(
-        context: context,
-        icon: Icons.people_outline,
-        title: 'Manage Teachers',
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ManageTeachersScreen(),
-            ),
-          );
-        },
-      ),
-      _buildFeatureCard(
-        context: context,
-        icon: Icons.person_search_outlined,
-        title: 'Manage Students',
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ManageStudentsScreen(),
-            ),
-          );
-        },
-      ),
-    ];
-
-    // Add “Manage Admins” card only if admin is verified
-    if (isVerified) {
-      featureCards.add(
-        _buildFeatureCard(
-          context: context,
-          icon: Icons.verified_user_outlined,
-          title: 'Manage Admins',
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ManageAdminsScreen(),
-              ),
-            );
-          },
-        ),
-      );
-    }
+    const primaryColor = Color(0xFF0A73B7);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin Dashboard'),
         backgroundColor: Colors.white,
-        foregroundColor: primaryBlue,
-        elevation: 1,
+        foregroundColor: primaryColor,
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GridView.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16.0,
-            mainAxisSpacing: 16.0,
-            children: featureCards,
-          ),
-        ),
-      ),
-    );
-  }
-
-  // Reusable card widget
-  static Widget _buildFeatureCard({
-    required BuildContext context,
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-  }) {
-    return SizedBox(
-      width: 140,
-      height: 140,
-      child: Card(
-        elevation: 4.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12.0),
-          splashColor: Colors.blue.withOpacity(0.2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 50.0, color: Colors.blue),
-              const SizedBox(height: 12.0),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          children: [
+            // Manage Courses card
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 3,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ManageCoursesScreen()),
+                  );
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.book_outlined, size: 50, color: primaryColor),
+                    SizedBox(height: 10),
+                    Text(
+                      'Manage Courses',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+            // Manage Teachers card
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 3,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ManageTeachersScreen()),
+                  );
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.people_outline, size: 50, color: primaryColor),
+                    SizedBox(height: 10),
+                    Text(
+                      'Manage Teachers',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Manage Students card
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 3,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ManageStudentsScreen()),
+                  );
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.person_search_outlined, size: 50, color: primaryColor),
+                    SizedBox(height: 10),
+                    Text(
+                      'Manage Students',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Manage Admins card — only if verified
+            if (isVerified)
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 3,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(12),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ManageAdminsScreen()),
+                    );
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.verified_user_outlined, size: 50, color: primaryColor),
+                      SizedBox(height: 10),
+                      Text(
+                        'Manage Admins',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );
