@@ -7,6 +7,8 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const primaryColor = Color(0xFF0A73B7);
 
+    String email = '';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Forgot Password'),
@@ -34,28 +36,43 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
             const SizedBox(height: 40),
 
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              onChanged: (value) {
+                email = value.trim();
+              },
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
                 labelText: 'Email',
                 prefixIcon: Icon(Icons.email_outlined, color: primaryColor),
                 border: OutlineInputBorder(),
               ),
             ),
+
             const SizedBox(height: 30),
 
             ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Reset link sent successfully!'),
-                    backgroundColor: Colors.green,
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-
-                Future.delayed(const Duration(seconds: 2), () {
-                  Navigator.pop(context);
-                });
+                if (email.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter your email address.'),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content:
+                      Text('Reset link sent successfully to $email!'),
+                      backgroundColor: Colors.green,
+                      duration: const Duration(seconds: 2),
+                    ),
+                  );
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Navigator.pop(context);
+                  });
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: primaryColor,
@@ -66,6 +83,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
+
             const SizedBox(height: 24),
 
             Center(
