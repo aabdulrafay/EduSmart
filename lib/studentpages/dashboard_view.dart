@@ -20,7 +20,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
   void initState() {
     super.initState();
     // Example data: You can later set this based on real DB or API
-    _resultPublished = true; // change to false to test "..."
+    _resultPublished = false; // change to false to test "..."
     _cgpa = 3.75;
   }
 
@@ -77,7 +77,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const StudentGradesView(
-                        resultsSubmitted: true,
+                        resultsSubmitted: false,
                         resultsBySession: {},
                       ),
                     ),
