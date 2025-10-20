@@ -70,7 +70,7 @@ class AddTeacherScreen extends StatelessWidget {
     );
   }
 
-  // 🔹 Reusable TextField Widget
+  // Reusable TextField Widget
   Widget _buildTextField({
     required String label,
     required IconData icon,
