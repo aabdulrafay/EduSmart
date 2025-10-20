@@ -14,7 +14,6 @@ class StudentDashboardScreen extends StatefulWidget {
 class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
   int _selectedIndex = 0;
 
-  // Pages for each tab in the bottom navigation bar
   static final List<Widget> _widgetOptions = <Widget>[
     const StudentDashboard(),
     const StudentEnrollmentView(),
@@ -24,18 +23,17 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     ),
     const StudentProfileView(
       name: 'Student Name',
-      studentId: 'SAP12345',
+      studentId: 'SAP ID',
       email: 'student@edusmart.edu.pk',
       phone: '123-456-7890',
       department: 'Software Engineering',
       gender: 'Male',
       dateOfBirth: '2000-01-01',
-      address: '123 Main St, Karachi, Pakistan',
+      address: 'I-14, Islamabad, Pakistan',
       profileImageUrl: 'https://static.thenounproject.com/png/3632534-200.png',
     ),
   ];
 
-  // Handle user tap on navigation bar item
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -47,10 +45,14 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     const primaryBlue = Color(0xFF0A73B7);
 
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      backgroundColor: Colors.white,
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: primaryBlue,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard_outlined),
@@ -69,11 +71,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
             label: 'Profile',
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: primaryBlue,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
       ),
     );
   }
