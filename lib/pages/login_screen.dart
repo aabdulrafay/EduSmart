@@ -4,7 +4,6 @@ import 'teacher_dashboard_screen.dart';
 import 'student_dashboard_screen.dart';
 import 'forgot_password_screen.dart';
 
-// Login Screen allows admin, teacher, and student to log in.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -13,52 +12,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // Controllers to get user input
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  String _email = '';
+  String _password = '';
 
-  @override
-  void dispose() {
-    // Dispose controllers to free memory
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  // Handle login logic
   void _handleLogin() {
-    String email = _emailController.text.trim();
-    String password = _passwordController.text.trim();
-
-    if (email == 'admin' && password == 'admin') {
-      // Go to Admin Dashboard
+    if (_email == 'admin' && _password == 'admin') {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const AdminDashboardScreen()),
       );
-    } else if (email == 'teacher' && password == 'teacher') {
-      // Go to Teacher Dashboard
+    } else if (_email == 'teacher' && _password == 'teacher') {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => TeacherDashboardScreen()),
       );
-    } else if (email == 'student' && password == 'student') {
-      // Go to Student Dashboard
+    } else if (_email == 'student' && _password == 'student') {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const StudentDashboardScreen()),
       );
     } else {
-      // Show error using SnackBar
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Invalid email or password.'),
-          backgroundColor: Colors.red,
-        ),
+        const SnackBar(content: Text('Invalid email or password.'), backgroundColor: Colors.red),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFF0A73B7); // EduSmart blue
+    const primaryColor = Color(0xFF0A73B7);
 
     return Theme(
       data: ThemeData(
@@ -90,17 +69,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8.0),
-
                   const Text(
                     'Sign in to continue',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16.0, color: Colors.grey),
                   ),
                   const SizedBox(height: 48.0),
-
-                  // Email Field
                   TextField(
-                    controller: _emailController,
+                    onChanged: (value) => _email = value.trim(),
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: primaryColor,
                     decoration: InputDecoration(
@@ -112,10 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-
-                  // Password Field
                   TextField(
-                    controller: _passwordController,
+                    onChanged: (value) => _password = value.trim(),
                     obscureText: true,
                     cursorColor: primaryColor,
                     decoration: InputDecoration(
@@ -127,8 +101,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 24.0),
-
-                  // Login Button
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: primaryColor,
@@ -144,8 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 12.0),
-
-                  // Forgot Password Link
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -161,28 +131,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 24.0),
+                  const Text(
+                    "In case of any issue, contact admin at",
+                    style: TextStyle(color: Colors.grey),
+                    textAlign: TextAlign.center,
+                  ),
+                  TextButton(
+                    onPressed: () {
 
-                  // Support Text
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    children: [
-                      const Text(
-                        "In case of any issue, contact admin at ",
-                        style: TextStyle(color: Colors.grey),
+                    },
+                    child: const Text(
+                      "adminsupport@edusmart.com",
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontWeight: FontWeight.bold,
                       ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: const Text(
-                          "adminsupport@edusmart.com",
-                          style: TextStyle(
-                            color: primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
