@@ -13,7 +13,6 @@ class AdminDashboardScreen extends StatefulWidget {
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   int _selectedIndex = 0; // For bottom navigation bar selection
 
-  // Pages shown for each bottom nav option
   static final List<Widget> _widgetOptions = <Widget>[
     const DashboardView(),
     const ReportsView(),
@@ -38,7 +37,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
