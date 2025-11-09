@@ -147,10 +147,12 @@ class StudentGradesView extends StatelessWidget {
                         return ListTile(
                           leading: const Icon(Icons.book_outlined,
                               color: Colors.blue),
+
                           title: Text(
                             courseName,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold),
+
                           ),
                           subtitle:
                           Text('Marks: ${course['marks'].toString()}'),

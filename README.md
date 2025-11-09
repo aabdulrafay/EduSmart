@@ -38,7 +38,7 @@ It provides separate interfaces for **Admins**, **Teachers**, and **Students**, 
 | Teacher Dashboard | Access attendance and evaluation tools |
 | Student Dashboard | View enrolled courses and results |
 
-*(See screenshots in the `/screenshots` folder or PDF for reference.)*
+*(See screenshots in the `/screenshots/EduSmart - Empowering Smarter Learning.pdf` folder or PDF for reference.)*
 
 ---
 
@@ -58,7 +58,7 @@ The project includes major interface designs such as:
 - Teacher Dashboard, Mark Attendance, Evaluate Students  
 - Student Dashboard, Enrolled Courses, Results  
 
-*(Preview available in `EduSmart - Empowering Smarter Learning.pdf`)*
+*(Preview available in `/screenshots/EduSmart - Empowering Smarter Learning.pdf`)*
 
 ---
 
